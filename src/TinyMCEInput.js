@@ -49,6 +49,7 @@ var TinyMCEInput = React.createClass({
     // intercepted events
     onChange: React.PropTypes.func.isRequired,              // this is a controlled component, we require onChange
     onBlur: React.PropTypes.func,
+    onSetupEditor: React.PropTypes.func,
 
     // direct pass through events
     onActivate: React.PropTypes.func,
@@ -127,6 +128,9 @@ var TinyMCEInput = React.createClass({
     editor.on('undo',   this.onTinyMCEUndo);
     editor.on('redo',   this.onTinyMCERedo);
     this.setupPassthroughEvents(editor);
+
+    if (this.props.onSetupEditor)
+      this.props.onSetupEditor(editor);
 
     if(this.props.focus) { editor.focus(); }
     this.initTimeout = undefined;
