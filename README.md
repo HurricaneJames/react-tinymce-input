@@ -22,3 +22,8 @@ There are a few other props, and it is possible to listen for most events.
     npm install
     npm run dev
     open localhost:8090
+
+## ChangeLog
+
+1.0.1   Add onSetupEditor prop to allow editor configuration
+1.0.0   Initial Release

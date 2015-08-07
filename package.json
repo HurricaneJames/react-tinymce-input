@@ -1,6 +1,6 @@
 {
   "name": "react-tinymce-input",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React component to control TinyMCE.",
   "main": "dist/TinyMCEInput.js",
   "scripts": {
