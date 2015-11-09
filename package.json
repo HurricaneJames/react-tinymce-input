@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/HurricaneJames/react-tinymce-input",
   "dependencies": {
-    "react": "^0.13.3",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
@@ -36,8 +35,12 @@
     "eslint": "^0.22.1",
     "eslint-plugin-react": "^2.5.0",
     "node-libs-browser": "^0.5.2",
+    "react": "~0.13.3",
     "react-hot-loader": "^1.2.7",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
+  },
+  "peerDependencies": {
+    "react": "^0.13.3"
   }
 }
