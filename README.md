@@ -25,5 +25,11 @@ There are a few other props, and it is possible to listen for most events.
 
 ## ChangeLog
 
-1.0.1   Add onSetupEditor prop to allow editor configuration
-1.0.0   Initial Release
+  - 1.0.2 mitigate textarea blink
+
+      - Update to initialize tinymce immediately if already defined (no more 100ms delay).
+      - Pseudo-hide the textarea. The TinyMCE editor will appear to "pop-in", but the textarea will not be visible before
+
+  - 1.0.1   Add onSetupEditor prop to allow editor configuration
+
+  - 1.0.0   Initial Release

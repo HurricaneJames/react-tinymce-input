@@ -32,6 +32,7 @@ const DIRECT_PASSTHROUGH_EVENTS = [
   'Show',
   'Submit'
 ];
+const PSEUDO_HIDDEN = {position: 'absolute', left: -200, top: -200, height: 0 };
 
 var TinyMCEInput = React.createClass({
   displayName: 'TinyMCEInput',
@@ -79,8 +80,12 @@ var TinyMCEInput = React.createClass({
     };
   },
   componentDidMount: function () {
-    this.initTimeout = setTimeout(this.initTinyMCE, 100);
     this.initStartTime = Date.now();
+    if(typeof tinymce !== 'undefined') {
+      this.initTinyMCE();
+    }else {
+      this.initTimeout = setTimeout(this.initTinyMCE, 100);
+    }
   },
   componentDidUpdate: function() {
     if(this.props.focus) {
@@ -129,8 +134,9 @@ var TinyMCEInput = React.createClass({
     editor.on('redo',   this.onTinyMCERedo);
     this.setupPassthroughEvents(editor);
 
-    if (this.props.onSetupEditor)
+    if (this.props.onSetupEditor) {
       this.props.onSetupEditor(editor);
+    }
 
     if(this.props.focus) { editor.focus(); }
     this.initTimeout = undefined;
@@ -229,6 +235,7 @@ var TinyMCEInput = React.createClass({
           defaultValue={this.state.value}
           onChange={this.onTextareaChange}
           rows={this.props.rows}
+          style={PSEUDO_HIDDEN}
         />
       </div>
     );
