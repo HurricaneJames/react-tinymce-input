@@ -47,6 +47,8 @@ var TinyMCEInput = React.createClass({
     style: React.PropTypes.object,
     ignoreUpdatesWhenFocused: React.PropTypes.bool,         // tinymce can sometimes have cursor position issues on updates, if you app does not need live updates from the backing model, then set the prop and it will only update when the editor does not have focus
 
+    pollInterval: React.PropTypes.number.isRequired,        // [1000] inteval to wait between polling for changes in tinymce editor (since blur does not always work), changes are then synced if the editor is focused
+
     // intercepted events
     onChange: React.PropTypes.func.isRequired,              // this is a controlled component, we require onChange
     onBlur: React.PropTypes.func,
@@ -70,6 +72,7 @@ var TinyMCEInput = React.createClass({
     return {
       tinymceConfig: {},
       maxInitWaitTime: 20000,
+      pollInterval: 1000,
       onChange: function() {}
     };
   },
@@ -86,6 +89,7 @@ var TinyMCEInput = React.createClass({
     }else {
       this.initTimeout = setTimeout(this.initTinyMCE, 100);
     }
+    this.updateInterval = setInterval(this.checkForChanges, this.props.pollInterval);
   },
   componentDidUpdate: function() {
     if(this.props.focus) {
@@ -96,6 +100,7 @@ var TinyMCEInput = React.createClass({
   componentWillUnmount: function () {
     tinymce.remove(this.state.id);
     clearTimeout(this.initTimeout);
+    clearInterval(this.updateInterval);
     this.initTimeout = undefined;
     this.initStartTime = undefined;
   },
@@ -189,6 +194,15 @@ var TinyMCEInput = React.createClass({
   triggerEventHandler: function(handler, event) {
     if(handler) {
       handler(event);
+    }
+  },
+  checkForChanges: function() {
+    var editor = tinymce.get(this.state.id);
+    if(tinymce.focusedEditor === editor) {
+      var content = editor.getContent();
+      if(content !== this.state.value) {
+        this.syncChange(content);
+      }
     }
   },
   onTinyMCEChange: function(tinyMCEEvent) {
