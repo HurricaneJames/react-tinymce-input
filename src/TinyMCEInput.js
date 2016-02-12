@@ -30,7 +30,8 @@ const DIRECT_PASSTHROUGH_EVENTS = [
   'Remove',
   'Reset',
   'Show',
-  'Submit'
+  'Submit',
+  'Click',
 ];
 const PSEUDO_HIDDEN = {position: 'absolute', left: -200, top: -200, height: 0 };
 
@@ -56,6 +57,7 @@ var TinyMCEInput = React.createClass({
 
     // direct pass through events
     onActivate: React.PropTypes.func,
+    onClick: React.PropTypes.func,
     onDeactivate: React.PropTypes.func,
     onFocus: React.PropTypes.func,
     onHide: React.PropTypes.func,
@@ -65,7 +67,12 @@ var TinyMCEInput = React.createClass({
     onReset: React.PropTypes.func,
     onShow: React.PropTypes.func,
     onSubmit: React.PropTypes.func,
-    onUndo: React.PropTypes.func
+    onUndo: React.PropTypes.func,
+
+    textareaProps: React.PropTypes.object.isRequired,       // props passed through to the textarea
+    otherEventHandlers: React.PropTypes.objectOf(
+      React.PropTypes.func.isRequired
+    ).isRequired,
 
   },
   getDefaultProps: function() {
@@ -73,6 +80,8 @@ var TinyMCEInput = React.createClass({
       tinymceConfig: {},
       maxInitWaitTime: 20000,
       pollInterval: 1000,
+      textareaProps: {},
+      otherEventHandlers: {},
       onChange: function() {}
     };
   },
@@ -122,7 +131,7 @@ var TinyMCEInput = React.createClass({
       , event;
 
     /* eslint-disable no-loop-func */
-    for(var i = 0, len = DIRECT_PASSTHROUGH_EVENTS.length; i < len; i++) {
+    for(var i = 0, len = DIRECT_PASSTHROUGH_EVENTS.length; i < len; ++i) {
       event = DIRECT_PASSTHROUGH_EVENTS[i];
       editor.on(event.toLowerCase(), function(tinyMCEEvent) {
         var handler = _this.props['on' + event];
@@ -130,6 +139,13 @@ var TinyMCEInput = React.createClass({
       });
     }
     /* eslint-enable no-loop-func */
+
+    var handlers = this.props.otherEventHandlers;
+    for(var eventName in handlers) {
+      if(handlers.hasOwnProperty(eventName)) {
+        editor.on(eventName, handlers[eventName]);
+      }
+    }
   },
   setupEditor: function(editor) {
     editor.on('change', this.onTinyMCEChange);
@@ -250,6 +266,7 @@ var TinyMCEInput = React.createClass({
           onChange={this.onTextareaChange}
           rows={this.props.rows}
           style={PSEUDO_HIDDEN}
+          {...this.props.textareaProps}
         />
       </div>
     );
