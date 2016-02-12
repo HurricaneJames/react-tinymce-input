@@ -25,7 +25,7 @@ There are a few other props, and it is possible to listen for most events.
 
 ## ChangeLog
 
-  - 1.1.0 passthroughs
+  - 1.2.0 passthroughs
 
       - added `onClick` prop that will bind to the 'click' event on the tinymce editor
       - added `textareaProps` prop that will pass through to the textarea
