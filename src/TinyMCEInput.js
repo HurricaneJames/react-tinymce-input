@@ -82,7 +82,8 @@ var TinyMCEInput = React.createClass({
       pollInterval: 1000,
       textareaProps: {},
       otherEventHandlers: {},
-      onChange: function() {}
+      onChange: function() {},
+      component: 'textinput',
     };
   },
   getInitialState: function() {
@@ -257,15 +258,16 @@ var TinyMCEInput = React.createClass({
   render: function() {
     // the textarea is controlled by tinymce... and react, neither of which agree on the value
     // solution: keep a separate input element, controlled by just react, that will actually be submitted
+    const Component = this.props.component;
     return (
       <div className={this.props.className} style={this.props.style}>
         <input type="hidden" name={this.props.name} value={this.state.value} readOnly />
-        <textarea
+        <Component
           id={this.state.id}
           defaultValue={this.state.value}
           onChange={this.onTextareaChange}
           rows={this.props.rows}
-          style={PSEUDO_HIDDEN}
+          style={this.props.tinymceConfig.inline ? {} : PSEUDO_HIDDEN}
           {...this.props.textareaProps}
         />
       </div>
