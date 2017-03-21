@@ -13,6 +13,10 @@ const TINYMCE_CONFIG = {
   'theme_modern_toolbar_align': 'left'
 };
 
+const INLINE_TINYMCE_CONFIG = {
+  inline: true,
+};
+
 var Tiny = React.createClass({
   displayName: 'TinyMCEExample',
   getInitialState: function() {
@@ -33,7 +37,11 @@ var Tiny = React.createClass({
   render: function() {
     return (
       <div>
+        <h2>Main</h2>
         <TinyMCEInput value={this.state.value} onChange={this.onChange} tinymceConfig={TINYMCE_CONFIG} />
+        <h2>Inline</h2>
+        <TinyMCEInput component="div" value={this.state.value} onChange={this.onChange}
+                      tinymceConfig={INLINE_TINYMCE_CONFIG} />
         <hr />
         <h2>Raw</h2>
         <div>{this.state.value}</div>
