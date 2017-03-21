@@ -131,12 +131,15 @@ var TinyMCEInput = React.createClass({
       , event;
 
     /* eslint-disable no-loop-func */
-    for(var i = 0, len = DIRECT_PASSTHROUGH_EVENTS.length; i < len; ++i) {
-      event = DIRECT_PASSTHROUGH_EVENTS[i];
-      editor.on(event.toLowerCase(), function(tinyMCEEvent) {
-        var handler = _this.props['on' + event];
-        if(typeof handler === 'function') { handler(tinyMCEEvent); }
-      });
+    for (var i = 0, len = DIRECT_PASSTHROUGH_EVENTS.length; i < len; ++i) {
+      (function(event){
+        editor.on(event.toLowerCase(), function (tinyMCEEvent) {
+          var handler = _this.props['on' + event];
+          if (typeof handler === 'function') {
+            handler(tinyMCEEvent);
+          }
+        });
+      })(DIRECT_PASSTHROUGH_EVENTS[i])
     }
     /* eslint-enable no-loop-func */
 
