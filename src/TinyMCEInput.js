@@ -234,7 +234,6 @@ var TinyMCEInput = React.createClass({
       // sync them now that we no longer have focus.
       tinyMCEEvent.target.setContent(this.state.value);
     }
-    if(this.props.onBlur) { this.props.onBlur(); }
   },
   onTinyMCEUndo: function(tinyMCEEvent) {
     this.triggerEventHandler(this.props.onUndo, tinyMCEEvent);
