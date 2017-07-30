@@ -1,4 +1,6 @@
 var React = require('react')
+  , ReactDOM = require('react-dom')
+  , createReactClass = require('create-react-class')
   , TinyMCEInput = require('../src/TinyMCEInput');
 
 const TINYMCE_CONFIG = {
@@ -17,7 +19,7 @@ const INLINE_TINYMCE_CONFIG = {
   inline: true,
 };
 
-var Tiny = React.createClass({
+var Tiny = createReactClass({
   displayName: 'TinyMCEExample',
   getInitialState: function() {
     return {
@@ -56,5 +58,5 @@ var Tiny = React.createClass({
   }
 });
 
-React.render(<Tiny />, document.getElementById('root'));
+ReactDOM.render(<Tiny />, document.getElementById('root'));
 
