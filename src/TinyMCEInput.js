@@ -19,6 +19,8 @@
 //     multiple editors to work on the input at the same time, tinymce may not be right for you.
 
 var React = require('react')
+  , PropTypes = require('prop-types')
+  , createReactClass = require('create-react-class')
   , uuid = require('uuid');
 
 const DIRECT_PASSTHROUGH_EVENTS = [
@@ -35,43 +37,43 @@ const DIRECT_PASSTHROUGH_EVENTS = [
 ];
 const PSEUDO_HIDDEN = {position: 'absolute', left: -200, top: -200, height: 0 };
 
-var TinyMCEInput = React.createClass({
+var TinyMCEInput = createReactClass({
   displayName: 'TinyMCEInput',
   propTypes: {
-    className: React.PropTypes.string,
-    tinymceConfig: React.PropTypes.object.isRequired,
-    name: React.PropTypes.string,                           // the form name for the input element
-    value: React.PropTypes.string,
-    rows: React.PropTypes.number,
-    focus: React.PropTypes.bool,                            // focus the tinymce element if not already focused
-    maxInitWaitTime: React.PropTypes.number,                // [20000] maximum amount of time to wait, in ms, for tinymce to create an editor before giving up
-    style: React.PropTypes.object,
-    ignoreUpdatesWhenFocused: React.PropTypes.bool,         // tinymce can sometimes have cursor position issues on updates, if you app does not need live updates from the backing model, then set the prop and it will only update when the editor does not have focus
+    className: PropTypes.string,
+    tinymceConfig: PropTypes.object.isRequired,
+    name: PropTypes.string,                           // the form name for the input element
+    value: PropTypes.string,
+    rows: PropTypes.number,
+    focus: PropTypes.bool,                            // focus the tinymce element if not already focused
+    maxInitWaitTime: PropTypes.number,                // [20000] maximum amount of time to wait, in ms, for tinymce to create an editor before giving up
+    style: PropTypes.object,
+    ignoreUpdatesWhenFocused: PropTypes.bool,         // tinymce can sometimes have cursor position issues on updates, if you app does not need live updates from the backing model, then set the prop and it will only update when the editor does not have focus
 
-    pollInterval: React.PropTypes.number.isRequired,        // [1000] inteval to wait between polling for changes in tinymce editor (since blur does not always work), changes are then synced if the editor is focused
+    pollInterval: PropTypes.number.isRequired,        // [1000] inteval to wait between polling for changes in tinymce editor (since blur does not always work), changes are then synced if the editor is focused
 
     // intercepted events
-    onChange: React.PropTypes.func.isRequired,              // this is a controlled component, we require onChange
-    onBlur: React.PropTypes.func,
-    onSetupEditor: React.PropTypes.func,
+    onChange: PropTypes.func.isRequired,              // this is a controlled component, we require onChange
+    onBlur: PropTypes.func,
+    onSetupEditor: PropTypes.func,
 
     // direct pass through events
-    onActivate: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    onDeactivate: React.PropTypes.func,
-    onFocus: React.PropTypes.func,
-    onHide: React.PropTypes.func,
-    onInit: React.PropTypes.func,
-    onRedo: React.PropTypes.func,
-    onRemove: React.PropTypes.func,
-    onReset: React.PropTypes.func,
-    onShow: React.PropTypes.func,
-    onSubmit: React.PropTypes.func,
-    onUndo: React.PropTypes.func,
+    onActivate: PropTypes.func,
+    onClick: PropTypes.func,
+    onDeactivate: PropTypes.func,
+    onFocus: PropTypes.func,
+    onHide: PropTypes.func,
+    onInit: PropTypes.func,
+    onRedo: PropTypes.func,
+    onRemove: PropTypes.func,
+    onReset: PropTypes.func,
+    onShow: PropTypes.func,
+    onSubmit: PropTypes.func,
+    onUndo: PropTypes.func,
 
-    textareaProps: React.PropTypes.object.isRequired,       // props passed through to the textarea
-    otherEventHandlers: React.PropTypes.objectOf(
-      React.PropTypes.func.isRequired
+    textareaProps: PropTypes.object.isRequired,       // props passed through to the textarea
+    otherEventHandlers: PropTypes.objectOf(
+      PropTypes.func.isRequired
     ).isRequired,
 
   },
