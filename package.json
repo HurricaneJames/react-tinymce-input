@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./scripts/build",
-    "prepublish": "npm run build",
+    "prepublish": "npm run-script build",
     "dev": "webpack-dev-server --progress --colors --port 8090"
   },
   "repository": {
