@@ -85,7 +85,7 @@ var TinyMCEInput = createReactClass({
       textareaProps: {},
       otherEventHandlers: {},
       onChange: function() {},
-      component: 'textinput',
+      component: 'textarea',
     };
   },
   getInitialState: function() {
