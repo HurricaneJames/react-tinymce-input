@@ -25,6 +25,17 @@ There are a few other props, and it is possible to listen for most events.
 
 ## ChangeLog
 
+  - 2.1.0
+
+      - revert to textarea as the default component
+
+  - 2.0.0
+
+      - added support for React 15+
+      - allow inline mode
+      - fix even handlers
+      - remove react 15.5+ warnings
+
   - 1.2.0 passthroughs
 
       - added `onClick` prop that will bind to the 'click' event on the tinymce editor
